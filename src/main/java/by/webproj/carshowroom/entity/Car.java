@@ -4,20 +4,20 @@ import java.sql.Blob;
 import java.util.Objects;
 
 public class Car {
-    private final long userId;
+    private final long carId;
     private final String carName;
     private final String carDescription;
     private final Blob carImage;
 
     private Car(Builder builder) {
-        userId = builder.userId;
+        carId = builder.userId;
         carName = builder.carName;
         carDescription = builder.carDescription;
         carImage = builder.carImage;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getCarId() {
+        return carId;
     }
 
     public String getCarName() {
@@ -39,7 +39,7 @@ public class Car {
 
         Car car = (Car) o;
 
-        if (userId != car.userId) return false;
+        if (carId != car.carId) return false;
         if (!Objects.equals(carName, car.carName)) return false;
         if (!Objects.equals(carDescription, car.carDescription))
             return false;
@@ -48,7 +48,7 @@ public class Car {
 
     @Override
     public int hashCode() {
-        int result = (int) (userId ^ (userId >>> 32));
+        int result = (int) (carId ^ (carId >>> 32));
         result = 31 * result + (carName != null ? carName.hashCode() : 0);
         result = 31 * result + (carDescription != null ? carDescription.hashCode() : 0);
         result = 31 * result + (carImage != null ? carImage.hashCode() : 0);
@@ -58,7 +58,7 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "userId=" + userId +
+                "userId=" + carId +
                 ", carName='" + carName + '\'' +
                 ", carDescription='" + carDescription + '\'' +
                 ", carImage=" + carImage +
@@ -71,7 +71,7 @@ public class Car {
         private String carDescription;
         private Blob carImage;
 
-        public Builder withUserId(long userId) {
+        public Builder withCarId(long userId) {
             this.userId = userId;
             return this;
         }
