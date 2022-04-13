@@ -14,7 +14,10 @@ public class Cache {
 
     public Optional<Command> getCommand(String commandName) {
         LOG.info("Get command by name from cache");
-        return Optional.ofNullable(commandCache.get(commandName));
+        if(commandName!=null){
+            return Optional.ofNullable(commandCache.get(commandName));
+        }
+        return Optional.empty();
     }
 
 

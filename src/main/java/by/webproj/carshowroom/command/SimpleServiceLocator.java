@@ -12,13 +12,18 @@ public class SimpleServiceLocator implements ServiceLocator {
     @Override
     public Command getCommand(String commandName) {
         final Optional<Command> commandFromCache = CACHE.getCommand(commandName);
+        if(commandName==null){
+            commandName = "mainPage";
+        }
         if (commandFromCache.isPresent()) {
             return commandFromCache.get();
         }
-        final InitialContext initialContext = new InitialContext();
-        final Command command = initialContext.lookup(commandName);
-        CACHE.addCommand(commandName, command);
-        LOG.info("Get command in Service Locator from Cache");
-        return command;
+            final InitialContext initialContext = new InitialContext();
+
+            final Command command = initialContext.lookup(commandName);
+            CACHE.addCommand(commandName, command);
+            LOG.info("Get command in Service Locator from Cache");
+            return command;
+
     }
 }

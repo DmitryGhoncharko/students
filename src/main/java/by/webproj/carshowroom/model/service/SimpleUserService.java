@@ -8,12 +8,12 @@ import by.webproj.carshowroom.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserServiceImpl implements UserService{
-    private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+public class SimpleUserService implements UserService{
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleUserService.class);
     private final UserValidator userValidator;
     private final UserDao userDao;
 
-    public UserServiceImpl(UserValidator userValidator, UserDao userDao) {
+    public SimpleUserService(UserValidator userValidator, UserDao userDao) {
         this.userValidator = userValidator;
         this.userDao = userDao;
     }

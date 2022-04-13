@@ -1,6 +1,7 @@
 package by.webproj.carshowroom.command;
 
-import by.webproject.carshowroom.exception.ServiceError;
+
+import by.webproj.carshowroom.exception.ServiceError;
 
 public interface Command {
 

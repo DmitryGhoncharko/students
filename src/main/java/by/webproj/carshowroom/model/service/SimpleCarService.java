@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class CarServiceImpl implements CarService {
-    private static final Logger LOG = LoggerFactory.getLogger(CarServiceImpl.class);
+public class SimpleCarService implements CarService {
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleCarService.class);
     private final CarValidator carValidator;
     private final CarDao carDao;
 
-    public CarServiceImpl(CarValidator carValidator, CarDao carDao) {
+    public SimpleCarService(CarValidator carValidator, CarDao carDao) {
         this.carValidator = carValidator;
         this.carDao = carDao;
     }
