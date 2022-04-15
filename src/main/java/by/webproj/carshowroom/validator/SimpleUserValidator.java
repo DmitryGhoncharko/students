@@ -14,14 +14,19 @@ public class SimpleUserValidator implements UserValidator {
 
 
     @Override
-    public boolean validateUserData(User user) {
-        if (user.getUserLogin() != null && user.getUserPassword() != null && user.getUserRole() != null) {
+    public boolean validateUserDataByUserObject(User user) {
+        return validateUserDataByLoginAndPassword(user.getUserLogin(), user.getUserPassword());
+    }
+
+    @Override
+    public boolean validateUserDataByLoginAndPassword(String login, String password) {
+        if (login != null && password != null) {
             Pattern pattern = Pattern.compile(LOGIN_REGEXP);
-            Matcher matcher = pattern.matcher(user.getUserLogin());
-            final boolean userLoginIsValid = matcher.find();
+            Matcher userLoginMather = pattern.matcher(login);
+            final boolean userLoginIsValid = userLoginMather.find();
             pattern = Pattern.compile(PASSWORD_REGEXP);
-            Matcher matcher1 = pattern.matcher(user.getUserPassword());
-            final boolean userPasswordIsValid = matcher.find();
+            Matcher userPasswordMatcher = pattern.matcher(password);
+            final boolean userPasswordIsValid = userPasswordMatcher.find();
             return userLoginIsValid && userPasswordIsValid;
         }
         return false;

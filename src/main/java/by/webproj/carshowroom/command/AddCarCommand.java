@@ -7,7 +7,7 @@ import by.webproj.carshowroom.model.service.CarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AddCarCommand implements Command{
+public class AddCarCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(AddCarCommand.class);
     private final CarService carService;
     private final RequestFactory requestFactory;
@@ -19,9 +19,9 @@ public class AddCarCommand implements Command{
 
     @Override
     public CommandResponse execute(CommandRequest request) throws ServiceError {
-        String carName = request.getParameter("carName");
-        String carImage = request.getParameter("carImage");
-        String carDescription = request.getParameter("carDescription");
+        final String carName = request.getParameter("carName");
+        final String carImage = request.getParameter("carImage");
+        final String carDescription = request.getParameter("carDescription");
         carService.addCar(new Car.Builder().withCarName(carName).
                 withCarDescription(carDescription).
                 withCarImage(carImage).build());
