@@ -16,7 +16,7 @@ public class HikariCPConnectionPool implements ConnectionPool{
     private static final Logger LOG = LoggerFactory.getLogger(HikariCPConnectionPool.class);
     private static final HikariConfig CONFIG = new HikariConfig();
     private static final Properties PROPERTIES = new Properties();
-    private static final String PROPERTIES_FILE_NAME = "database.properties";
+    private static final String PROPERTIES_DATABASE_FILE_NAME = "database.properties";
     private static final String PROPERTY_URL = "db.url";
     private static final String PROPERTY_USER = "db.user";
     private static final String PROPERTY_PASSWORD = "db.password";
@@ -31,7 +31,7 @@ public class HikariCPConnectionPool implements ConnectionPool{
 
     static {
         try (InputStream inputStream = HikariCPConnectionPool.class.getClassLoader()
-                .getResourceAsStream(PROPERTIES_FILE_NAME)) {
+                .getResourceAsStream(PROPERTIES_DATABASE_FILE_NAME)) {
             PROPERTIES.load(inputStream);
             DATABASE_URL = PROPERTIES.getProperty(PROPERTY_URL);
             DATABASE_USER = PROPERTIES.getProperty(PROPERTY_USER);
