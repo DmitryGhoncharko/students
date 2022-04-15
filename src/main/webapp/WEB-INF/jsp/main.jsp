@@ -64,19 +64,19 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap First" src="${pageContext.request.contextPath}/static/main1.png"/>
+                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap First" src="${pageContext.request.contextPath}/static/car1.png"/>
                         <div class="carousel-caption">
 
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Second" src="${pageContext.request.contextPath}/static/main2.png"/>
+                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Second" src="${pageContext.request.contextPath}/static/car2.png"/>
                         <div class="carousel-caption">
 
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Third" src="${pageContext.request.contextPath}/static/main3.png"/>
+                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Third" src="${pageContext.request.contextPath}/static/car3.png"/>
                         <div class="carousel-caption">
 
                         </div>

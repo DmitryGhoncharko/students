@@ -6,8 +6,13 @@ import by.webproj.carshowroom.model.connection.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class SimpleCarDao implements CarDao {
@@ -27,7 +32,9 @@ public class SimpleCarDao implements CarDao {
         try (final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_CAR, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, car.getCarName());
             preparedStatement.setString(2, car.getCarDescription());
-            preparedStatement.setBlob(3, car.getCarImage());
+            Blob blob = connection.createBlob();
+            blob.setBytes(1,car.getCarImage().getBytes(StandardCharsets.UTF_8));
+            preparedStatement.setBlob(3, blob);
             final int countRowsCreated = preparedStatement.executeUpdate();
             final ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (countRowsCreated > 0 && generatedKeys.next()) {
@@ -64,7 +71,10 @@ public class SimpleCarDao implements CarDao {
         try (final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_CAR)) {
             preparedStatement.setString(1, car.getCarName());
             preparedStatement.setString(2, car.getCarDescription());
-            preparedStatement.setBlob(3, car.getCarImage());
+            byte[] bytes = car.getCarImage().getBytes(StandardCharsets.UTF_8);
+            Blob blob = connection.createBlob();
+            blob.setBytes(1,bytes);
+            preparedStatement.setBlob(3,blob);
             preparedStatement.setLong(4, car.getCarId());
             final int countUpdatedRows = preparedStatement.executeUpdate();
             if (countUpdatedRows > 0) {
@@ -88,7 +98,7 @@ public class SimpleCarDao implements CarDao {
                         withCarId(resultSet.getLong(1)).
                         withCarName(resultSet.getString(2)).
                         withCarDescription(resultSet.getString(3)).
-                        withCarImage(resultSet.getBlob(4)).
+                        withCarImage(convertBlobToString(resultSet.getBlob(4))).
                         build();
                 carList.add(car);
             }
@@ -97,5 +107,26 @@ public class SimpleCarDao implements CarDao {
             throw new DaoException("Cannot get all cars", sqlException);
         }
         return carList;
+    }
+    private String convertBlobToString(Blob blob) {
+
+        try(InputStream inputStream = blob.getBinaryStream(); ByteArrayOutputStream outputStream =new ByteArrayOutputStream();){
+
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            byte[] imageBytes = outputStream.toByteArray();
+
+            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+            return base64Image;
+        }catch (Exception e){
+
+        }
+        return "";
+
     }
 }

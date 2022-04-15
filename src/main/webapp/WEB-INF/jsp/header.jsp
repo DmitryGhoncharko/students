@@ -33,11 +33,13 @@
 
         <c:choose>
             <c:when test="${not empty sessionScope.user}">
+                <a class="btn btn-primary" href="/controller?command=showcars" role="button">Показать список машин</a>
+                <a class="btn btn-primary" href="/controller?command=showaddcars" role="button">На страницу добавления машины</a>
                 <a class="btn btn-primary" href="/controller?command=logout" role="button">Выйти</a>
             </c:when>
             <c:otherwise>
                 <a class="btn btn-primary" href="/controller?command=login" role="button">Войти</a>
-                <a class="nav-link" href="/controller?command=registration">${registration}</a>
+
             </c:otherwise>
         </c:choose>
     </nav>

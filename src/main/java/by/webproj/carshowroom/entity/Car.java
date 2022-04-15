@@ -7,7 +7,7 @@ public class Car {
     private final long carId;
     private final String carName;
     private final String carDescription;
-    private final Blob carImage;
+    private final String carImage;
 
     private Car(Builder builder) {
         carId = builder.userId;
@@ -28,7 +28,7 @@ public class Car {
         return carDescription;
     }
 
-    public Blob getCarImage() {
+    public String getCarImage() {
         return carImage;
     }
 
@@ -69,7 +69,7 @@ public class Car {
         private long userId;
         private String carName;
         private String carDescription;
-        private Blob carImage;
+        private String carImage;
 
         public Builder withCarId(long userId) {
             this.userId = userId;
@@ -86,7 +86,7 @@ public class Car {
             return this;
         }
 
-        public Builder withCarImage(Blob carImage) {
+        public Builder withCarImage(String carImage) {
             this.carImage = carImage;
             return this;
         }

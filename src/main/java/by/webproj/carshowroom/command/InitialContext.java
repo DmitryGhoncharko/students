@@ -23,18 +23,30 @@ public class InitialContext {
     private final CarDao carDao = new SimpleCarDao(hikariCPConnectionPool);
     private final UserValidator simplePageServiceValidator = new SimpleUserValidator();
     private final CarValidator carValidator = new SimpleCarValidator();
-    private final UserService pageService = new SimpleUserService(simplePageServiceValidator,simplePageDao);
+    private final UserService pageService = new SimpleUserService(simplePageServiceValidator, simplePageDao);
     private final CarService carService = new SimpleCarService(carValidator, carDao);
     private final RequestFactory requestFactory = new SimpleRequestFactory();
 
     public Command lookup(String commandName) {
 
-               switch (commandName){
-                   default: return new ShowMainPageCommand(requestFactory);
-               }
-
-
-
+        switch (commandName) {
+            case "logincmnd":
+                return new LoginCommand(pageService, requestFactory);
+            case "login":
+                return new ShowLoginPageCommand(requestFactory);
+            case "logout":
+                return new LogoutCommand(requestFactory);
+            case "showcars":
+                return new ShowCarsPageCommand(carService,requestFactory);
+            case "deleteCar":
+                return new DeleteCarCommand(carService,requestFactory);
+            case "addCar" :
+                return new AddCarCommand(carService,requestFactory);
+            case "showaddcars" :
+                return new ShowAddCarPageCommand(requestFactory);
+                default:
+                return new ShowMainPageCommand(requestFactory);
+        }
 
     }
 }
