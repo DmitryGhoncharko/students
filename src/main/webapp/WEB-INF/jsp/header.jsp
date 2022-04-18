@@ -26,20 +26,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/controller?command=/">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/controller?command=/" role="button">Главная</a>
                 </li>
             </ul>
         </div>
 
         <c:choose>
             <c:when test="${not empty sessionScope.user}">
-                <a class="btn btn-primary" href="/controller?command=showcars" role="button">Показать список машин</a>
-                <a class="btn btn-primary" href="/controller?command=showaddcars" role="button">На страницу добавления машины</a>
+                <a class="nav-link" href="/controller?command=showcars" role="button">Показать список машин</a>
+                <a class="nav-link" href="/controller?command=showaddcars" role="button">На страницу добавления машины</a>
                 <a class="btn btn-primary" href="/controller?command=logout" role="button">Выйти</a>
             </c:when>
             <c:otherwise>
                 <a class="btn btn-primary" href="/controller?command=login" role="button">Войти</a>
-
+                <a class="nav-link" href="/controller?command=sekretkeypage" role="button">Регистрация</a>
             </c:otherwise>
         </c:choose>
     </nav>

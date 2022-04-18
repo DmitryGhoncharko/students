@@ -2,6 +2,12 @@ package by.webproj.carshowroom.command;
 
 import by.webproj.carshowroom.controller.RequestFactory;
 import by.webproj.carshowroom.controller.SimpleRequestFactory;
+import by.webproj.carshowroom.mailsender.GmailSender;
+import by.webproj.carshowroom.mailsender.MailSender;
+import by.webproj.carshowroom.mailsender.secretkeycache.SecretKeyCache;
+import by.webproj.carshowroom.mailsender.secretkeycache.SynchronizedArrayListBasedSecretKeyCache;
+import by.webproj.carshowroom.mailsender.secretkeygenerator.SecretKeyGenerator;
+import by.webproj.carshowroom.mailsender.secretkeygenerator.SecretKeyGeneratorBasedOnPassayLibrary;
 import by.webproj.carshowroom.model.connection.ConnectionPool;
 import by.webproj.carshowroom.model.connection.HikariCPConnectionPool;
 import by.webproj.carshowroom.model.dao.CarDao;
@@ -26,7 +32,10 @@ public class InitialContext {
     private final UserValidator simplePageServiceValidator = new SimpleUserValidator();
     private final CarValidator simpleCarValidator = new SimpleCarValidator();
     private final PasswordHasher bcryptWithSaltHasher = new BcryptWithSaltHasherImpl();
-    private final UserService simpleUserService = new SimpleUserService(simplePageServiceValidator, simplePageDao, bcryptWithSaltHasher);
+    private final SecretKeyCache synchronizedArrayListBasedSecretKeyCache = new SynchronizedArrayListBasedSecretKeyCache();
+    private final SecretKeyGenerator secretKeyGeneratorBasedOnPassayLibrary = new SecretKeyGeneratorBasedOnPassayLibrary(synchronizedArrayListBasedSecretKeyCache);
+    private final MailSender javaxMailSender = new GmailSender(secretKeyGeneratorBasedOnPassayLibrary);
+    private final UserService simpleUserService = new SimpleUserService(simplePageServiceValidator, simplePageDao, bcryptWithSaltHasher, synchronizedArrayListBasedSecretKeyCache);
     private final CarService simpleCarService = new SimpleCarService(simpleCarValidator, simpleCarDao);
     private final RequestFactory simpleRequestFactory = new SimpleRequestFactory();
 
@@ -43,11 +52,23 @@ public class InitialContext {
                 return new ShowCarsPageCommand(simpleCarService, simpleRequestFactory);
             case "deleteCar":
                 return new DeleteCarCommand(simpleCarService, simpleRequestFactory);
-            case "addCar" :
+            case "addCar":
                 return new AddCarCommand(simpleCarService, simpleRequestFactory);
-            case "showaddcars" :
+            case "showaddcars":
                 return new ShowAddCarPageCommand(simpleRequestFactory);
-                default:
+            case "sekretkeypage":
+                return new ShowSecretCodePageCommand(simpleRequestFactory);
+            case "getsecretkey":
+                return new SendSecretKeyCommand(javaxMailSender, simpleRequestFactory);
+            case "registration":
+                return new ShowRegistrationPageCommand(simpleRequestFactory);
+            case "registrationcmnd":
+                return new RegistrationCommand(simpleUserService, simpleRequestFactory);
+            case "updateCar":
+                return new ShowUpdateCarPageCommand(simpleCarService, simpleRequestFactory);
+            case "updateCarCommand":
+                return new UpdateCarCommand(simpleCarService, simpleRequestFactory);
+            default:
                 return new ShowMainPageCommand(simpleRequestFactory);
         }
 

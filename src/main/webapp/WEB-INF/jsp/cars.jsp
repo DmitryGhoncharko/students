@@ -26,6 +26,9 @@
 <html>
 <head>
     <title>Автомобили</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
 </head>
 <body>
 <div class="container-fluid">
@@ -44,19 +47,20 @@
                         <h5>Машина была успешно удалена</h5>
                     </c:if>
                     <c:forEach var="car" items="${requestScope.cars}">
-                        <form action="/controller?command=deleteCar" method="post">
+                        <form>
                             <input hidden="" value="${car.carId}" name="carId">
                             <div class="row">
                                 <div class="col-md-12">
                                     <h3>
                                             ${car.carName}
                                     </h3>
-                                    <button type="submit" class="btn btn-primary">Удалить машину</button>
+                                    <button type="submit" formaction="/controller?command=deleteCar" formmethod="post" class="btn btn-primary">Удалить машину</button>
+                                    <button type="submit" formaction="/controller?command=updateCar" formmethod="post" class="btn btn-primary">Изменить машину</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <img src="data:image/jpg;base64,${car.carImage}" style="height: 100%; width: 100%"/>
+                                    <img src="http://localhost:8000/${car.carId}.png" style="height: 100%; width: 100%"/>
                                 </div>
                                 <div class="col-md-6">
                                     <h2>

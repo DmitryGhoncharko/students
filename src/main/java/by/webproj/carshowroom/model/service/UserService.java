@@ -5,7 +5,7 @@ import by.webproj.carshowroom.entity.User;
 import java.util.Optional;
 
 public interface UserService {
-    User addUserAsAdmin(String login, String password);
+    User addUserAsAdmin(String login, String password, String secretKey);
 
     Optional<User> authenticateIfAdmin(String login, String password);
 }

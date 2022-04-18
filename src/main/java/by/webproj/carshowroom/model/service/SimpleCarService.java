@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SimpleCarService implements CarService {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleCarService.class);
@@ -59,6 +60,16 @@ public class SimpleCarService implements CarService {
         } catch (DaoException daoException) {
             LOG.error("Cannot get all cars", daoException);
             throw new ServiceError("Cannot get all cars", daoException);
+        }
+    }
+
+    @Override
+    public Optional<Car> findCarById(long carId) {
+        try {
+            return carDao.findCarById(carId);
+        } catch (DaoException e) {
+            LOG.error("Cannot find car by id, carId: " + carId);
+            throw new ServiceError("Cannot find car by id, carId: " + carId);
         }
     }
 }

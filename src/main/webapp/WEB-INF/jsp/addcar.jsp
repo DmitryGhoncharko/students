@@ -25,47 +25,49 @@
         crossorigin="anonymous"></script>
 <html>
 <head>
-    <title>Автомобили</title>
+    <title>Добавить машину</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
 </head>
 <body>
 <div class="container-fluid">
+    <form action="/controller?command=addCar" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-12">
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-12">
                     <header>
                         <jsp:include page="header.jsp"></jsp:include>
                     </header>
-
-                        <form action="/controller?command=addCar" method="post">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3>
-                                        <label>Название машины</label>
-                                            <input type="text" name="carName">
-                                    </h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Фото машины</label>
-                                    <input type="file" name="carImage">
-                                </div>
-                                <div class="col-md-6">
-                                    <h2>
-                                        <label>Описание машины</label>
-                                        <input type="text" name="carDescription">
-                                    </h2>
-                                </div>
-                            </div>
-                            <button type="submit">Добавить машину</button>
-                        </form>
                 </div>
             </div>
+            <div class="row" style="padding-right: 20%;padding-left: 40%; padding-top: 5%; padding-bottom: 5%">
+                <div class="col-md-12">
+                    <label>Название машины</label>
+                    <input type="text" name="carName" >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6" style="padding-left: 10%; padding-right: 5%; padding-bottom: 5%; padding-top: 5%">
+                            <label>Фото машины</label>
+                            <input type="file" name="carImage" >
+                        </div>
+                        <div class="col-md-6" style="padding-left: 10%; padding-right: 5%; padding-bottom: 5%; padding-top: 5%">
+                            <label>Описание машины</label>
+                            <input type="text" name="carDescription" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="padding-left: 40%; padding-bottom: 5%">
+                    <button type="submit" class="btn btn-primary">Добавить машину</button>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <footer>
@@ -75,6 +77,60 @@
             </div>
         </div>
     </div>
+    </form>
 </div>
+
+
+
+
+
+<%--<div class="container-fluid">--%>
+<%--    <div class="row">--%>
+<%--        <div class="col-md-12">--%>
+<%--            <div class="row">--%>
+<%--                <div class="col-md-12">--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="row">--%>
+<%--                <div class="col-md-12">--%>
+<%--                    <header>--%>
+<%--                        <jsp:include page="header.jsp"></jsp:include>--%>
+<%--                    </header>--%>
+
+<%--                        <form action="/controller?command=addCar" method="post" enctype="multipart/form-data">--%>
+<%--                            <div class="row">--%>
+<%--                                <div class="col-md-12">--%>
+<%--                                    <h3>--%>
+<%--                                        <label>Название машины</label>--%>
+<%--                                            <input type="text" name="carName" >--%>
+<%--                                    </h3>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="row">--%>
+<%--                                <div class="col-md-6">--%>
+<%--                                    <label>Фото машины</label>--%>
+<%--                                    <input type="file" name="carImage" >--%>
+<%--                                </div>--%>
+<%--                                <div class="col-md-6">--%>
+<%--                                    <h2>--%>
+<%--                                        <label>Описание машины</label>--%>
+<%--                                        <input type="text" name="carDescription" >--%>
+<%--                                    </h2>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <button type="submit">Добавить машину</button>--%>
+<%--                        </form>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="row">--%>
+<%--                <div class="col-md-12">--%>
+<%--                    <footer>--%>
+<%--                        <jsp:include page="footer.jsp"></jsp:include>--%>
+<%--                    </footer>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 </body>
 </html>

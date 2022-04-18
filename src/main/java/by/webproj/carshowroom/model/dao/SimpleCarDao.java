@@ -7,20 +7,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 public class SimpleCarDao implements CarDao {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleCarDao.class);
-    private static final String SQL_ADD_CAR = "insert into car(car_name, car_description, car_image) values (?,?,?)";
+    private static final String SQL_ADD_CAR = "insert into car(car_name, car_description) values (?,?)";
     private static final String SQL_DELETE_CAR = "delete from car where car_id = ?";
-    private static final String SQL_UPDATE_CAR = "update car set car_name = ?, car_description = ?, car_image = ? where car_id = ?";
-    private static final String SQL_GET_ALL_CARS = "select car_id, car_name, car_description, car_image from  car";
+    private static final String SQL_UPDATE_CAR = "update car set car_name = ?, car_description = ? where car_id = ?";
+    private static final String SQL_GET_ALL_CARS = "select car_id, car_name, car_description from  car";
+    private static final String SQL_FIND_CAR_BY_ID = "select car_id, car_name, car_description from car where car_id = ?";
     private final ConnectionPool connectionPool;
 
     public SimpleCarDao(ConnectionPool connectionPool) {
@@ -32,9 +33,6 @@ public class SimpleCarDao implements CarDao {
         try (final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_CAR, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, car.getCarName());
             preparedStatement.setString(2, car.getCarDescription());
-            Blob blob = connection.createBlob();
-            blob.setBytes(1,car.getCarImage().getBytes(StandardCharsets.UTF_8));
-            preparedStatement.setBlob(3, blob);
             final int countRowsCreated = preparedStatement.executeUpdate();
             final ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (countRowsCreated > 0 && generatedKeys.next()) {
@@ -42,9 +40,8 @@ public class SimpleCarDao implements CarDao {
                         withCarId(generatedKeys.getLong(1)).
                         withCarName(car.getCarName()).
                         withCarDescription(car.getCarDescription()).
-                        withCarImage(car.getCarImage()).
                         build();
-                return car;
+                return createdCar;
             }
         } catch (SQLException sqlException) {
             LOG.error("Cannot add new car, carName: " + car.getCarName() + " carDescription: " + car.getCarDescription(), sqlException);
@@ -71,11 +68,7 @@ public class SimpleCarDao implements CarDao {
         try (final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_CAR)) {
             preparedStatement.setString(1, car.getCarName());
             preparedStatement.setString(2, car.getCarDescription());
-            byte[] bytes = car.getCarImage().getBytes(StandardCharsets.UTF_8);
-            Blob blob = connection.createBlob();
-            blob.setBytes(1,bytes);
-            preparedStatement.setBlob(3,blob);
-            preparedStatement.setLong(4, car.getCarId());
+            preparedStatement.setLong(3, car.getCarId());
             final int countUpdatedRows = preparedStatement.executeUpdate();
             if (countUpdatedRows > 0) {
                 return car;
@@ -98,7 +91,6 @@ public class SimpleCarDao implements CarDao {
                         withCarId(resultSet.getLong(1)).
                         withCarName(resultSet.getString(2)).
                         withCarDescription(resultSet.getString(3)).
-                        withCarImage(convertBlobToString(resultSet.getBlob(4))).
                         build();
                 carList.add(car);
             }
@@ -108,25 +100,25 @@ public class SimpleCarDao implements CarDao {
         }
         return carList;
     }
-    private String convertBlobToString(Blob blob) {
 
-        try(InputStream inputStream = blob.getBinaryStream(); ByteArrayOutputStream outputStream =new ByteArrayOutputStream();){
-
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
+    @Override
+    public Optional<Car> findCarById(long carId) throws DaoException {
+        try (final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_CAR_BY_ID)) {
+            preparedStatement.setLong(1, carId);
+            final ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                final Car car = new Car.Builder().
+                        withCarId(resultSet.getLong(1)).
+                        withCarName(resultSet.getString(2)).
+                        withCarDescription(resultSet.getString(3)).
+                        build();
+                return Optional.of(car);
             }
-
-            byte[] imageBytes = outputStream.toByteArray();
-
-            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-            return base64Image;
-        }catch (Exception e){
-
+        } catch (SQLException sqlException) {
+            LOG.error("Cannot find car by id, carId:" + carId, sqlException);
+            throw new DaoException("Cannot find car by id, carId:" + carId, sqlException);
         }
-        return "";
-
+        LOG.info("Cannot find car by id, carId:" + carId);
+        return Optional.empty();
     }
 }

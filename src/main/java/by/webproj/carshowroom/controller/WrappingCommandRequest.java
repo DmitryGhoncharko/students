@@ -3,8 +3,13 @@ package by.webproj.carshowroom.controller;
 import by.webproj.carshowroom.command.CommandRequest;
 
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.util.Collection;
 import java.util.Optional;
 
 public class WrappingCommandRequest implements CommandRequest {
@@ -65,7 +70,21 @@ public class WrappingCommandRequest implements CommandRequest {
     }
 
     @Override
-    public String getURI() {
-        return String.valueOf(request.getRequestURI());
+    public String getURI() {return String.valueOf(request.getRequestURI());}
+
+    @Override
+    public Part getPart(String name) throws ServletException, IOException {
+        return request.getPart(name);
+    }
+
+    @Override
+    public ServletContext getServletContext() {
+        return request.getServletContext();
+
+    }
+
+    @Override
+    public Collection<Part> getParts() throws ServletException, IOException {
+        return request.getParts();
     }
 }

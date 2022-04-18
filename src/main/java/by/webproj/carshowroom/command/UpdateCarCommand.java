@@ -12,29 +12,29 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 
-public class AddCarCommand implements Command {
-    private static final Logger LOG = LoggerFactory.getLogger(AddCarCommand.class);
+public class UpdateCarCommand implements Command{
+    private static final Logger LOG  = LoggerFactory.getLogger(UpdateCarCommand.class);
     private static final String DIRECTORY = "serverforapp";
     private static final String FILE_EXTENSION = ".png";
     private final CarService carService;
     private final RequestFactory requestFactory;
 
-    public AddCarCommand(CarService carService, RequestFactory requestFactory) {
+    public UpdateCarCommand(CarService carService, RequestFactory requestFactory) {
         this.carService = carService;
         this.requestFactory = requestFactory;
     }
 
     @Override
     public CommandResponse execute(CommandRequest request) throws ServiceError {
+        final long carId = Long.parseLong(request.getParameter("carId"));
         final String carName = request.getParameter("carName");
         final String carDescription = request.getParameter("carDescription");
-        Car createdCar = carService.addCar(new Car.Builder().
+        carService.updateCar(new Car.Builder().
+                withCarId(carId).
                 withCarName(carName).
-                withCarDescription(carDescription).
-                build());
-
-        saveImage(request,createdCar.getCarId());
-        return requestFactory.createRedirectResponse("/controller?command=main");
+                withCarDescription(carDescription).build());
+        saveImage(request,carId);
+        return requestFactory.createRedirectResponse("/controller?command=showcars");
     }
     private void saveImage(CommandRequest request, long carId) {
         String uploadPath = request.getServletContext().getRealPath("") + File.separator + DIRECTORY;

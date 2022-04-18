@@ -196,15 +196,12 @@
                     </div>
                 </div>
                 <div class="form-group help">
-                    <input type="password" name="secretcode"  pattern="^[0-9]{6,100}$" class="form-control needs-validation"  placeholder="Секретный код" required>
+                    <input type="password" name="secretcode"  pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{10,100}$" class="form-control needs-validation"  placeholder="Секретный код" required>
                     <div class="invalid-feedback">
                         Ожидается секретный код ...
                     </div>
                 </div>
                 <div class="form-group">
-                    <c:if test="${not empty requestScope.errorLoginPassMessage}">
-                        <b>Неверный логин или пароль</b>
-                    </c:if>
                     <div class="row">
                         <div class="col-md-6">
                             <button type="submit" class="btn btn-default">Зарегистрироваться</button>

@@ -176,21 +176,20 @@
     <title>Страница получения секретного кода</title>
 </head>
 <body>
-<div class="container-fluide">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-default">Получить секретный код на почту администратора</button>
-                        </div>
-                        <div class="col-md-6">
-                            <a class="btn btn-default" href="/controller?command = main_page">На главную</a>
-                        </div>
-                    </div>
+        <div class="col-md-12">
+            <form class="form-horizontal needs-validation"  novalidate style="padding-top: 20%;padding-left: 20%; padding-bottom: 20%; padding-right: 20%">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" formaction="/controller?command=getsecretkey" formmethod="post" class="btn btn-default">Получить секретный код ...</button>
                 </div>
+                <div class="col-md-6">
+                    <a class="btn btn-default" href="/controller?command = main_page">На главную</a>
+                </div>
+            </div>
             </form>
         </div>
-
     </div>
 </div>
 </body>
