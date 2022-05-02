@@ -39,6 +39,7 @@ public class InitialContext {
     private final CarService simpleCarService = new SimpleCarService(simpleCarValidator, simpleCarDao);
     private final RequestFactory simpleRequestFactory = new SimpleRequestFactory();
 
+
     public Command lookup(String commandName) {
 
         switch (commandName) {
