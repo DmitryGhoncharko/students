@@ -74,4 +74,12 @@ public class InitialContext {
         }
 
     }
+
+    public UserService getSimpleUserService() {
+        return simpleUserService;
+    }
+
+    public CarService getSimpleCarService() {
+        return simpleCarService;
+    }
 }

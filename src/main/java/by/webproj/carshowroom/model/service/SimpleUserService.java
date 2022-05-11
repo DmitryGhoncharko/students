@@ -52,6 +52,26 @@ public class SimpleUserService implements UserService {
     }
 
     @Override
+    public boolean addUserAsClient(String login, String password) {
+        if(!userValidator.validateUserDataByLoginAndPassword(login,password)){
+            return false;
+        }
+        try{
+                final String hashedPassword = passwordHasher.hashPassword(password);
+                final User user = new User.Builder().
+                        withUserLogin(login).
+                        withUserPassword(hashedPassword).
+                        withUserRole(Role.CLIENT).
+                        build();
+                 userDao.addUser(user);
+        }catch (DaoException e){
+            LOG.error("Cannot add user as client",e);
+            throw new ServiceError("Cannot add user as client",e);
+        }
+        return true;
+    }
+
+    @Override
     public Optional<User> authenticateIfAdmin(String login, String password) {
         if (!userValidator.validateUserDataByLoginAndPassword(login, password)) {
             return Optional.empty();
@@ -63,6 +83,28 @@ public class SimpleUserService implements UserService {
                 final User userInstance = userFromDB.get();
                 final String hashedPasswordFromDB = userInstance.getUserPassword();
                 if (userInstance.getUserRole().equals(Role.ADMIN) && passwordHasher.checkIsEqualsPasswordAndPasswordHash(password, hashedPasswordFromDB)) {
+                    return userFromDB;
+                }
+            }
+        } catch (DaoException daoException) {
+            LOG.error("Cannot authorize user, userLogin: " + login + " userPassword :" + password, daoException);
+            throw new ServiceError("Cannot authorize user, userLogin: " + login + " userPassword :" + password);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> authenticateIfClient(String login, String password) {
+        if (!userValidator.validateUserDataByLoginAndPassword(login, password)) {
+            return Optional.empty();
+        }
+        try {
+
+            final Optional<User> userFromDB = userDao.findUserByLogin(login);
+            if (userFromDB.isPresent()) {
+                final User userInstance = userFromDB.get();
+                final String hashedPasswordFromDB = userInstance.getUserPassword();
+                if (userInstance.getUserRole().equals(Role.CLIENT) && passwordHasher.checkIsEqualsPasswordAndPasswordHash(password, hashedPasswordFromDB)) {
                     return userFromDB;
                 }
             }
