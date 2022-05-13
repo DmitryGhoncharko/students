@@ -56,7 +56,7 @@
                         <div class="row">
                             <div class="col-md-6" style="padding-left: 10%; padding-right: 5%; padding-bottom: 5%; padding-top: 5%">
                                 <label>Предыдущее фото</label>
-                                <img src="http://localhost:8000/${car.carId}.png" style="height: 100%; width: 100%"/>
+                                <img src="http://194.87.98.149:8000/${car.carId}.png" style="height: 100%; width: 100%"/>
                                 <label>Фото машины</label>
                                 <input type="file" name="carImage" >
                             </div>
