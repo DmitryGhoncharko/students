@@ -28,9 +28,6 @@ public class SimpleUserValidator implements UserValidator {
     @Override
     public boolean validateUserDataByLoginAndPasswordWithSecretKey(String login, String password, String secretKey) {
         if (secretKey != null) {
-//            final Pattern pattern = Pattern.compile(SECRET_KEY_REGEXP);
-//            final Matcher matcher = pattern.matcher(secretKey);
-//            final boolean secretKeyIsValid = matcher.find();
             return validateUserDataByLoginAndPassword(login, password);
         }
         return false;

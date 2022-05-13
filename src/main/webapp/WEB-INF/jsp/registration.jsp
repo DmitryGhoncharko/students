@@ -196,7 +196,7 @@
                     </div>
                 </div>
                 <div class="form-group help">
-                    <input type="password" name="secretcode"  pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{10,100}$" class="form-control needs-validation"  placeholder="Секретный код" required>
+                    <input type="password" name="secretcode" class="form-control needs-validation"  placeholder="Секретный код" required>
                     <div class="invalid-feedback">
                         Ожидается секретный код ...
                     </div>

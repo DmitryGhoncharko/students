@@ -62,9 +62,14 @@ public class UserRestServlet extends HttpServlet {
             final String login = req.getParameter("login");
             final String password = req.getParameter("password");
             final boolean userAdded = userService.addUserAsClient(login,password);
+            final Optional<User> user = userService.authenticateIfClient(login,password);
             if(userAdded){
-                resp.setStatus(201);
-                return;
+                if(user.isPresent()){
+                    resp.setStatus(201);
+                    PrintWriter printWriter = resp.getWriter();
+                    printWriter.write(String.valueOf(user.get().getUserId()));
+                    return;
+                }
             }
         }
 
