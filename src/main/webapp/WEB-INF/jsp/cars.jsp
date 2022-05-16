@@ -69,6 +69,7 @@
                                     <p>
                                             ${car.carDescription}
                                     </p>
+
                                 </div>
                             </div>
                         </form>
