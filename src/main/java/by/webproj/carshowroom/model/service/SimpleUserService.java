@@ -11,6 +11,7 @@ import by.webproj.carshowroom.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Optional;
 
 public class SimpleUserService implements UserService {
@@ -81,7 +82,7 @@ public class SimpleUserService implements UserService {
             final Optional<User> userFromDB = userDao.findUserByLogin(login);
             if (userFromDB.isPresent()) {
                 final User userInstance = userFromDB.get();
-                final String hashedPasswordFromDB = userInstance.getUserPassword();
+                final String hashedPasswordFromDB = userInstance.getPassword();
                 if (userInstance.getUserRole().equals(Role.ADMIN) && passwordHasher.checkIsEqualsPasswordAndPasswordHash(password, hashedPasswordFromDB)) {
                     return userFromDB;
                 }
@@ -103,7 +104,7 @@ public class SimpleUserService implements UserService {
             final Optional<User> userFromDB = userDao.findUserByLogin(login);
             if (userFromDB.isPresent()) {
                 final User userInstance = userFromDB.get();
-                final String hashedPasswordFromDB = userInstance.getUserPassword();
+                final String hashedPasswordFromDB = userInstance.getPassword();
                 if (userInstance.getUserRole().equals(Role.CLIENT) && passwordHasher.checkIsEqualsPasswordAndPasswordHash(password, hashedPasswordFromDB)) {
                     return userFromDB;
                 }
@@ -113,5 +114,15 @@ public class SimpleUserService implements UserService {
             throw new ServiceError("Cannot authorize user, userLogin: " + login + " userPassword :" + password);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<User> findAllClients() {
+        try{
+            return userDao.findAllClients();
+        }catch (DaoException e){
+            LOG.error("Cannot find users as clients",e);
+            throw new ServiceError("Cannot find users as clients",e);
+        }
     }
 }

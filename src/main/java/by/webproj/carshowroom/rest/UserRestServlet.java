@@ -2,14 +2,7 @@ package by.webproj.carshowroom.rest;
 
 import by.webproj.carshowroom.command.InitialContext;
 import by.webproj.carshowroom.entity.User;
-import by.webproj.carshowroom.model.connection.ConnectionPool;
-import by.webproj.carshowroom.model.connection.HikariCPConnectionPool;
-import by.webproj.carshowroom.model.dao.SimpleUserDao;
-import by.webproj.carshowroom.model.dao.UserDao;
-import by.webproj.carshowroom.model.service.SimpleUserService;
 import by.webproj.carshowroom.model.service.UserService;
-import by.webproj.carshowroom.validator.SimpleUserValidator;
-import by.webproj.carshowroom.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +48,7 @@ public class UserRestServlet extends HttpServlet {
             if(user.isPresent()){
                 resp.setStatus(202);
                 PrintWriter printWriter = resp.getWriter();
-                printWriter.write(String.valueOf(user.get().getUserId()));
+                printWriter.write(String.valueOf(user.get().getId()));
                 return;
             }
         }else if(pathInfo.equals("/user/registration")||pathInfo.equals("/user/registration/")){
@@ -67,7 +60,7 @@ public class UserRestServlet extends HttpServlet {
                 if(user.isPresent()){
                     resp.setStatus(201);
                     PrintWriter printWriter = resp.getWriter();
-                    printWriter.write(String.valueOf(user.get().getUserId()));
+                    printWriter.write(String.valueOf(user.get().getId()));
                     return;
                 }
             }

@@ -10,14 +10,8 @@ import by.webproj.carshowroom.mailsender.secretkeygenerator.SecretKeyGenerator;
 import by.webproj.carshowroom.mailsender.secretkeygenerator.SecretKeyGeneratorBasedOnPassayLibrary;
 import by.webproj.carshowroom.model.connection.ConnectionPool;
 import by.webproj.carshowroom.model.connection.HikariCPConnectionPool;
-import by.webproj.carshowroom.model.dao.CarDao;
-import by.webproj.carshowroom.model.dao.SimpleCarDao;
-import by.webproj.carshowroom.model.dao.SimpleUserDao;
-import by.webproj.carshowroom.model.dao.UserDao;
-import by.webproj.carshowroom.model.service.CarService;
-import by.webproj.carshowroom.model.service.SimpleCarService;
-import by.webproj.carshowroom.model.service.SimpleUserService;
-import by.webproj.carshowroom.model.service.UserService;
+import by.webproj.carshowroom.model.dao.*;
+import by.webproj.carshowroom.model.service.*;
 import by.webproj.carshowroom.securiy.BcryptWithSaltHasherImpl;
 import by.webproj.carshowroom.securiy.PasswordHasher;
 import by.webproj.carshowroom.validator.CarValidator;
@@ -38,7 +32,8 @@ public class InitialContext {
     private final UserService simpleUserService = new SimpleUserService(simplePageServiceValidator, simplePageDao, bcryptWithSaltHasher, synchronizedArrayListBasedSecretKeyCache);
     private final CarService simpleCarService = new SimpleCarService(simpleCarValidator, simpleCarDao);
     private final RequestFactory simpleRequestFactory = new SimpleRequestFactory();
-
+    private final FavoritesDao favoritesDao = new SimpleFavoritesDao(hikariCPConnectionPool);
+    private final FavoritesService favoritesService = new SimpleFavoritesService(favoritesDao);
 
     public Command lookup(String commandName) {
 
@@ -69,6 +64,10 @@ public class InitialContext {
                 return new ShowUpdateCarPageCommand(simpleCarService, simpleRequestFactory);
             case "updateCarCommand":
                 return new UpdateCarCommand(simpleCarService, simpleRequestFactory);
+            case "showUsers":
+                return new ShowUsersPageCommand(simpleRequestFactory, simpleUserService);
+            case "showfavorites":
+                return new ShowUserFavoritesCommand(simpleRequestFactory, favoritesService);
             default:
                 return new ShowMainPageCommand(simpleRequestFactory);
         }
@@ -81,5 +80,9 @@ public class InitialContext {
 
     public CarService getSimpleCarService() {
         return simpleCarService;
+    }
+
+    public FavoritesService getFavoritesService(){
+        return favoritesService;
     }
 }

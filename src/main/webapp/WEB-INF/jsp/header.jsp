@@ -33,6 +33,7 @@
 
         <c:choose>
             <c:when test="${not empty sessionScope.user}">
+                <a class="nav-link" href="/controller?command=showUsers" role="button">Пользователи</a>
                 <a class="nav-link" href="/controller?command=showcars" role="button">Показать список машин</a>
                 <a class="nav-link" href="/controller?command=showaddcars" role="button">На страницу добавления машины</a>
                 <a class="btn btn-primary" href="/controller?command=logout" role="button">Выйти</a>
