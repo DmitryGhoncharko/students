@@ -27,7 +27,7 @@ public class SimpleUserValidator implements UserValidator {
 
     @Override
     public boolean validateUserDataByLoginAndPasswordWithSecretKey(String login, String password, String secretKey) {
-        if (secretKey != null) {
+        if (secretKey == null) {
             return validateUserDataByLoginAndPassword(login, password);
         }
         return false;

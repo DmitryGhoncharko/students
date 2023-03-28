@@ -40,7 +40,7 @@
             </c:when>
             <c:otherwise>
                 <a class="btn btn-primary" href="/controller?command=login" role="button">Войти</a>
-                <a class="nav-link" href="/controller?command=sekretkeypage" role="button">Регистрация</a>
+                <a class="nav-link" href="/controller?command=registration" role="button">Регистрация</a>
             </c:otherwise>
         </c:choose>
     </nav>

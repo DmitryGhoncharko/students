@@ -2,12 +2,6 @@ package by.webproj.carshowroom.command;
 
 import by.webproj.carshowroom.controller.RequestFactory;
 import by.webproj.carshowroom.controller.SimpleRequestFactory;
-import by.webproj.carshowroom.mailsender.GmailSender;
-import by.webproj.carshowroom.mailsender.MailSender;
-import by.webproj.carshowroom.mailsender.secretkeycache.SecretKeyCache;
-import by.webproj.carshowroom.mailsender.secretkeycache.SynchronizedArrayListBasedSecretKeyCache;
-import by.webproj.carshowroom.mailsender.secretkeygenerator.SecretKeyGenerator;
-import by.webproj.carshowroom.mailsender.secretkeygenerator.SecretKeyGeneratorBasedOnPassayLibrary;
 import by.webproj.carshowroom.model.connection.ConnectionPool;
 import by.webproj.carshowroom.model.connection.HikariCPConnectionPool;
 import by.webproj.carshowroom.model.dao.*;
@@ -26,10 +20,7 @@ public class InitialContext {
     private final UserValidator simplePageServiceValidator = new SimpleUserValidator();
     private final CarValidator simpleCarValidator = new SimpleCarValidator();
     private final PasswordHasher bcryptWithSaltHasher = new BcryptWithSaltHasherImpl();
-    private final SecretKeyCache synchronizedArrayListBasedSecretKeyCache = new SynchronizedArrayListBasedSecretKeyCache();
-    private final SecretKeyGenerator secretKeyGeneratorBasedOnPassayLibrary = new SecretKeyGeneratorBasedOnPassayLibrary(synchronizedArrayListBasedSecretKeyCache);
-    private final MailSender javaxMailSender = new GmailSender(secretKeyGeneratorBasedOnPassayLibrary);
-    private final UserService simpleUserService = new SimpleUserService(simplePageServiceValidator, simplePageDao, bcryptWithSaltHasher, synchronizedArrayListBasedSecretKeyCache);
+    private final UserService simpleUserService = new SimpleUserService(simplePageServiceValidator, simplePageDao, bcryptWithSaltHasher);
     private final CarService simpleCarService = new SimpleCarService(simpleCarValidator, simpleCarDao);
     private final RequestFactory simpleRequestFactory = new SimpleRequestFactory();
     private final FavoritesDao favoritesDao = new SimpleFavoritesDao(hikariCPConnectionPool);
@@ -54,8 +45,6 @@ public class InitialContext {
                 return new ShowAddCarPageCommand(simpleRequestFactory);
             case "sekretkeypage":
                 return new ShowSecretCodePageCommand(simpleRequestFactory);
-            case "getsecretkey":
-                return new SendSecretKeyCommand(javaxMailSender, simpleRequestFactory);
             case "registration":
                 return new ShowRegistrationPageCommand(simpleRequestFactory);
             case "registrationcmnd":

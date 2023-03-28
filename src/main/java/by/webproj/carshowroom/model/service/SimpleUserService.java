@@ -4,7 +4,6 @@ import by.webproj.carshowroom.entity.Role;
 import by.webproj.carshowroom.entity.User;
 import by.webproj.carshowroom.exception.DaoException;
 import by.webproj.carshowroom.exception.ServiceError;
-import by.webproj.carshowroom.mailsender.secretkeycache.SecretKeyCache;
 import by.webproj.carshowroom.model.dao.UserDao;
 import by.webproj.carshowroom.securiy.PasswordHasher;
 import by.webproj.carshowroom.validator.UserValidator;
@@ -19,13 +18,12 @@ public class SimpleUserService implements UserService {
     private final UserValidator userValidator;
     private final UserDao userDao;
     private final PasswordHasher passwordHasher;
-    private final SecretKeyCache secretKeyCache;
 
-    public SimpleUserService(UserValidator userValidator, UserDao userDao, PasswordHasher passwordHasher, SecretKeyCache secretKeyCache) {
+    public SimpleUserService(UserValidator userValidator, UserDao userDao, PasswordHasher passwordHasher) {
         this.userValidator = userValidator;
         this.userDao = userDao;
         this.passwordHasher = passwordHasher;
-        this.secretKeyCache = secretKeyCache;
+
     }
 
     @Override
@@ -34,40 +32,36 @@ public class SimpleUserService implements UserService {
             throw new ServiceError("Invalid user data, userPassword: " + login + " userLogin: " + password + " secretKey: " + secretKey);
         }
         try {
-            if (secretKeyCache.containKeyOnCache(secretKey)) {
-                final String hashedPassword = passwordHasher.hashPassword(password);
-                final User user = new User.Builder().
-                        withUserLogin(login).
-                        withUserPassword(hashedPassword).
-                        withUserRole(Role.ADMIN).
-                        build();
-                secretKeyCache.deleteKeyFromCache(secretKey);
-                return userDao.addUser(user);
-            }
+            final String hashedPassword = passwordHasher.hashPassword(password);
+            final User user = new User.Builder().
+                    withUserLogin(login).
+                    withUserPassword(hashedPassword).
+                    withUserRole(Role.ADMIN).
+                    build();
+
+            return userDao.addUser(user);
         } catch (DaoException daoException) {
             LOG.error("Cannot add new user, userLogin: " + login + " userPassword: " + password + " secretKey: " + secretKey, daoException);
             throw new ServiceError("Cannot add new user, userLogin: " + login + " userPassword: " + password + " secretKey: " + secretKey, daoException);
         }
-        LOG.error("Cannot add new user, userLogin: " + login + " userPassword: " + password + " secretKey: " + secretKey);
-        throw new ServiceError("Cannot add new user, userLogin: " + login + " userPassword: " + password + " secretKey: " + secretKey);
     }
 
     @Override
     public boolean addUserAsClient(String login, String password) {
-        if(!userValidator.validateUserDataByLoginAndPassword(login,password)){
+        if (!userValidator.validateUserDataByLoginAndPassword(login, password)) {
             return false;
         }
-        try{
-                final String hashedPassword = passwordHasher.hashPassword(password);
-                final User user = new User.Builder().
-                        withUserLogin(login).
-                        withUserPassword(hashedPassword).
-                        withUserRole(Role.CLIENT).
-                        build();
-                 userDao.addUser(user);
-        }catch (DaoException e){
-            LOG.error("Cannot add user as client",e);
-            throw new ServiceError("Cannot add user as client",e);
+        try {
+            final String hashedPassword = passwordHasher.hashPassword(password);
+            final User user = new User.Builder().
+                    withUserLogin(login).
+                    withUserPassword(hashedPassword).
+                    withUserRole(Role.CLIENT).
+                    build();
+            userDao.addUser(user);
+        } catch (DaoException e) {
+            LOG.error("Cannot add user as client", e);
+            throw new ServiceError("Cannot add user as client", e);
         }
         return true;
     }
@@ -118,11 +112,11 @@ public class SimpleUserService implements UserService {
 
     @Override
     public List<User> findAllClients() {
-        try{
+        try {
             return userDao.findAllClients();
-        }catch (DaoException e){
-            LOG.error("Cannot find users as clients",e);
-            throw new ServiceError("Cannot find users as clients",e);
+        } catch (DaoException e) {
+            LOG.error("Cannot find users as clients", e);
+            throw new ServiceError("Cannot find users as clients", e);
         }
     }
 }

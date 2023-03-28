@@ -181,7 +181,7 @@
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <form class="form-horizontal needs-validation" action="/controller?command=registrationcmnd" method="post" novalidate>
-                <span class="heading">Авторизация</span>
+                <span class="heading">Регистрация</span>
                 <div class="form-group">
                     <input type="text" pattern="^[a-zA-Z0-9]{6,100}$" class="form-control needs-validation" id="validationServer03" name="login" placeholder="Ваш логин" required>
                     <div class="invalid-feedback">
@@ -193,12 +193,6 @@
                     <input type="password" name="password"  pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,100}$" class="form-control needs-validation" id="inputPassword" placeholder="Ваш пароль" required>
                     <div class="invalid-feedback">
                         Пароль должен быть минимум шесть символов, пароль должен содержать буквы цифры и спец символы
-                    </div>
-                </div>
-                <div class="form-group help">
-                    <input type="password" name="secretcode" class="form-control needs-validation"  placeholder="Секретный код" required>
-                    <div class="invalid-feedback">
-                        Ожидается секретный код ...
                     </div>
                 </div>
                 <div class="form-group">
