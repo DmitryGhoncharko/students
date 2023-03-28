@@ -17,11 +17,11 @@ import java.util.Optional;
 
 public class SimpleCarDao implements CarDao {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleCarDao.class);
-    private static final String SQL_ADD_CAR = "insert into car(car_name, car_description) values (?,?)";
+    private static final String SQL_ADD_CAR = "insert into car(car_name, car_description, car_price) values (?,?,?)";
     private static final String SQL_DELETE_CAR = "delete from car where car_id = ?";
-    private static final String SQL_UPDATE_CAR = "update car set car_name = ?, car_description = ? where car_id = ?";
-    private static final String SQL_GET_ALL_CARS = "select car_id, car_name, car_description from  car";
-    private static final String SQL_FIND_CAR_BY_ID = "select car_id, car_name, car_description from car where car_id = ?";
+    private static final String SQL_UPDATE_CAR = "update car set car_name = ?, car_description = ?, car_price = ? where car_id = ?";
+    private static final String SQL_GET_ALL_CARS = "select car_id, car_name, car_description, car_price from  car";
+    private static final String SQL_FIND_CAR_BY_ID = "select car_id, car_name, car_description, car_price from car where car_id = ?";
     private final ConnectionPool connectionPool;
 
     public SimpleCarDao(ConnectionPool connectionPool) {
@@ -33,6 +33,7 @@ public class SimpleCarDao implements CarDao {
         try (final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_CAR, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, car.getCarName());
             preparedStatement.setString(2, car.getCarDescription());
+            preparedStatement.setInt(3,car.getPrice());
             final int countRowsCreated = preparedStatement.executeUpdate();
             final ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (countRowsCreated > 0 && generatedKeys.next()) {
@@ -68,7 +69,8 @@ public class SimpleCarDao implements CarDao {
         try (final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_CAR)) {
             preparedStatement.setString(1, car.getCarName());
             preparedStatement.setString(2, car.getCarDescription());
-            preparedStatement.setLong(3, car.getCarId());
+            preparedStatement.setInt(3,car.getPrice());
+            preparedStatement.setLong(4, car.getCarId());
             final int countUpdatedRows = preparedStatement.executeUpdate();
             if (countUpdatedRows > 0) {
                 return car;
@@ -91,6 +93,7 @@ public class SimpleCarDao implements CarDao {
                         withCarId(resultSet.getLong(1)).
                         withCarName(resultSet.getString(2)).
                         withCarDescription(resultSet.getString(3)).
+                        withPrice(resultSet.getInt(4)).
                         build();
                 carList.add(car);
             }
@@ -111,6 +114,7 @@ public class SimpleCarDao implements CarDao {
                         withCarId(resultSet.getLong(1)).
                         withCarName(resultSet.getString(2)).
                         withCarDescription(resultSet.getString(3)).
+                        withPrice(resultSet.getInt(4)).
                         build();
                 return Optional.of(car);
             }

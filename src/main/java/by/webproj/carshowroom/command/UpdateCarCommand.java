@@ -29,10 +29,13 @@ public class UpdateCarCommand implements Command{
         final long carId = Long.parseLong(request.getParameter("carId"));
         final String carName = request.getParameter("carName");
         final String carDescription = request.getParameter("carDescription");
+        final String carPrice = request.getParameter("price");
         carService.updateCar(new Car.Builder().
                 withCarId(carId).
                 withCarName(carName).
-                withCarDescription(carDescription).build());
+                withCarDescription(carDescription).
+                withPrice(Integer.parseInt(carPrice)).
+                build());
         saveImage(request,carId);
         return requestFactory.createRedirectResponse("/controller?command=showcars");
     }

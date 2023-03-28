@@ -58,6 +58,10 @@
                         <div class="col-md-6" style="padding-left: 10%; padding-right: 5%; padding-bottom: 5%; padding-top: 5%">
                             <label>Описание машины</label>
                             <input type="text" name="carDescription" style="width: 100px; height: 100px">
+                            <br>
+                            <br>
+                            <label for="111">Цена машины</label>
+                            <input required id="111" name="price"  type="number">
                         </div>
                     </div>
                 </div>

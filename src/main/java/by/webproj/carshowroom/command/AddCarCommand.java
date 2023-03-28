@@ -28,9 +28,11 @@ public class AddCarCommand implements Command {
     public CommandResponse execute(CommandRequest request) throws ServiceError {
         final String carName = request.getParameter("carName");
         final String carDescription = request.getParameter("carDescription");
+        final String carPrice = request.getParameter("price");
         Car createdCar = carService.addCar(new Car.Builder().
                 withCarName(carName).
                 withCarDescription(carDescription).
+                withPrice(Integer.parseInt(carPrice)).
                 build());
 
         saveImage(request,createdCar.getCarId());

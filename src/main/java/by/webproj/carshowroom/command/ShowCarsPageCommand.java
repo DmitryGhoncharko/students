@@ -7,6 +7,7 @@ import by.webproj.carshowroom.model.service.CarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class ShowCarsPageCommand implements Command{
@@ -22,6 +23,10 @@ public class ShowCarsPageCommand implements Command{
     @Override
     public CommandResponse execute(CommandRequest request) throws ServiceError {
         final List<Car> carList = carService.getCars();
+        String sort = request.getParameter("sort");
+        if(sort!=null){
+            carList.sort(Comparator.comparingInt(Car::getPrice));
+        }
         request.addAttributeToJsp("cars",carList);
         return requestFactory.createForwardResponse(PagePath.CARS_PAGE.getPath());
     }

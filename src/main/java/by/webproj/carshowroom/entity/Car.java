@@ -7,12 +7,12 @@ public class Car {
     private final String carName;
     private final String carDescription;
 
-
+    private final int price;
     private Car(Builder builder) {
         carId = builder.carId;
         carName = builder.carName;
         carDescription = builder.carDescription;
-
+        price = builder.price;
     }
 
     public long getCarId() {
@@ -27,6 +27,10 @@ public class Car {
         return carDescription;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,6 +39,7 @@ public class Car {
         Car car = (Car) o;
 
         if (carId != car.carId) return false;
+        if (price != car.price) return false;
         if (!Objects.equals(carName, car.carName)) return false;
         return Objects.equals(carDescription, car.carDescription);
     }
@@ -44,6 +49,7 @@ public class Car {
         int result = (int) (carId ^ (carId >>> 32));
         result = 31 * result + (carName != null ? carName.hashCode() : 0);
         result = 31 * result + (carDescription != null ? carDescription.hashCode() : 0);
+        result = 31 * result + price;
         return result;
     }
 
@@ -53,6 +59,7 @@ public class Car {
                 "carId=" + carId +
                 ", carName='" + carName + '\'' +
                 ", carDescription='" + carDescription + '\'' +
+                ", price=" + price +
                 '}';
     }
 
@@ -60,7 +67,7 @@ public class Car {
         private long carId;
         private String carName;
         private String carDescription;
-
+        private int price;
         public Builder withCarId(long carId) {
             this.carId = carId;
             return this;
@@ -75,7 +82,10 @@ public class Car {
             this.carDescription = carDescription;
             return this;
         }
-
+        public Builder withPrice(int price){
+            this.price = price;
+            return this;
+        }
         public Car build() {
             return new Car(this);
         }

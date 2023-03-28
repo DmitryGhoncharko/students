@@ -43,6 +43,7 @@
                     <header>
                         <jsp:include page="header.jsp"></jsp:include>
                     </header>
+                    <a href="/controller?command=showcars&sort=true">Сортировать по цене(по возрастанию)</a>
                     <c:if test="${not empty requestScope.sucsess}">
                         <h5>Машина была успешно удалена</h5>
                     </c:if>
@@ -69,7 +70,11 @@
                                     <p>
                                             ${car.carDescription}
                                     </p>
-
+                                    <br>
+                                    <br>
+                                    <label for="111">Цена
+                                    </label>
+                                    <h1 id="111">${car.price}</h1>
                                 </div>
                             </div>
                         </form>
