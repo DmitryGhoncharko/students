@@ -15,7 +15,7 @@
 <div class="container-fluide">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="<c:url value="/static/carIcon.png"/>" width="70" height="65"
+            <img src="<c:url value="/static/1.jpg"/>" width="70" height="65"
                  class="d-inline-block align-top" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -33,9 +33,11 @@
 
         <c:choose>
             <c:when test="${not empty sessionScope.user}">
-                <a class="nav-link" href="/controller?command=showUsers" role="button">Пользователи</a>
-                <a class="nav-link" href="/controller?command=showcars" role="button">Показать список машин</a>
-                <a class="nav-link" href="/controller?command=showaddcars" role="button">На страницу добавления машины</a>
+                <a class="nav-link" href="/controller?command=/" role="button">На главную</a>
+                <a class="nav-link" href="/controller?command=info" role="button">Информация о дальтонизме</a>
+                <a class="nav-link" href="/controller?command=test" role="button">Пройти тест на дальтонизм</a>
+                <a class="nav-link" href="/controller?command=images" role="button">Показать мои загруженные картинки</a>
+                <a class="nav-link" href="/controller?command=analyze" role="button">Анализ картинки</a>
                 <a class="btn btn-primary" href="/controller?command=logout" role="button">Выйти</a>
             </c:when>
             <c:otherwise>

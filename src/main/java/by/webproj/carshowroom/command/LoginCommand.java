@@ -27,7 +27,7 @@ public class LoginCommand implements Command {
     @Override
     public CommandResponse execute(CommandRequest request) throws ServiceError {
         if (request.sessionExists() && request.retrieveFromSession(USER_SESSION_ATTRIBUTE_NAME).isPresent()) {
-            return requestFactory.createForwardResponse(PagePath.MAIN_PAGE.getPath());
+            return requestFactory.createRedirectResponse(PagePath.MAIN_PAGE.getPath());
         }
         final String login = request.getParameter(LOGIN_REQUEST_PARAM_NAME);
         final String password = request.getParameter(PASSWORD_REQUEST_PARAM_NAME);

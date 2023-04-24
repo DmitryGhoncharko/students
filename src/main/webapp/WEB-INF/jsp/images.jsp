@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -42,7 +43,7 @@
 </style>
 <html>
 <head>
-    <title>Главная страница</title>
+    <title>Тест на дальтонизм</title>
 </head>
 <body>
 <div class="container-fluid flex">
@@ -53,41 +54,17 @@
     </div>
     <div class="row h-100">
         <div class="col-md-12 h-100">
-            <div class="carousel slide" id="carousel-406496">
-                <ol class="carousel-indicators">
-                    <li data-slide-to="0" data-target="#carousel-406496" class="active">
-                    </li>
-                    <li data-slide-to="1" data-target="#carousel-406496">
-                    </li>
-                    <li data-slide-to="2" data-target="#carousel-406496">
-                    </li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap First" src="${pageContext.request.contextPath}/static/1.jpg"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Second" src="${pageContext.request.contextPath}/static/2.png"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Third" src="${pageContext.request.contextPath}/static/3.jpg"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                </div> <a class="carousel-control-prev" href="#carousel-406496" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-406496" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <jsp:include page="footer.jsp"></jsp:include>
-                </div>
-            </div>
+            <br>
+            <c:forEach items="${requestScope.images}" var="image">
+                <form method="post" action="/controller?command=analyzeImage&open=true">
+                    <img src="http://127.0.0.1:8000/${image.id}.png">
+                    <br>
+                    <input hidden="hidden" name="save" value="false">
+                    <br>
+                    <input hidden="hidden" name="imageId" value="${image.id}">
+                    <button type="submit">Провести анализ картинки</button>
+                </form>
+            </c:forEach>
         </div>
     </div>
 </div>

@@ -42,7 +42,7 @@
 </style>
 <html>
 <head>
-    <title>Главная страница</title>
+    <title>Тест на дальтонизм</title>
 </head>
 <body>
 <div class="container-fluid flex">
@@ -53,36 +53,12 @@
     </div>
     <div class="row h-100">
         <div class="col-md-12 h-100">
-            <div class="carousel slide" id="carousel-406496">
-                <ol class="carousel-indicators">
-                    <li data-slide-to="0" data-target="#carousel-406496" class="active">
-                    </li>
-                    <li data-slide-to="1" data-target="#carousel-406496">
-                    </li>
-                    <li data-slide-to="2" data-target="#carousel-406496">
-                    </li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap First" src="${pageContext.request.contextPath}/static/1.jpg"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Second" src="${pageContext.request.contextPath}/static/2.png"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Third" src="${pageContext.request.contextPath}/static/3.jpg"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                </div> <a class="carousel-control-prev" href="#carousel-406496" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-406496" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
-            </div>
+            <br>
+            <form action="/controller?command=analyzeImage" method="post" enctype="multipart/form-data">
+                <input type="file" name="image" required>
+                <br>
+                <button type="submit">Загрузить картинку для анализа цветов</button>
+            </form>
             <div class="row">
                 <div class="col-md-12">
                     <jsp:include page="footer.jsp"></jsp:include>
