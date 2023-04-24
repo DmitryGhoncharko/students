@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -43,7 +42,7 @@
 </style>
 <html>
 <head>
-  <title>Результат анализа</title>
+  <title>Текущие оставленные заявки</title>
 </head>
 <body>
 <div class="container-fluid flex">
@@ -54,13 +53,14 @@
   </div>
   <div class="row h-100">
     <div class="col-md-12 h-100">
-      <img src="http://127.0.0.1:8000/${sessionScope.imageId}.png">
-      <br>
-      <h1>Цвета выявленные на картинке:</h1>
-      <br>
-      <c:forEach items="${sessionScope.colors}" var="color">
-        <div style="width: 120px; height: 120px; background: #${color}"></div>
-      </c:forEach>
+     <c:forEach items="rep" var="request">
+        <p id="name">Название: ${request.name}</p>
+         <br>
+         <p>Описание: ${request.description}</p>
+         <br>
+         <p>Цена: ${request.cost}</p>
+         <br>
+     </c:forEach>
       <div class="row">
         <div class="col-md-12">
           <jsp:include page="footer.jsp"></jsp:include>

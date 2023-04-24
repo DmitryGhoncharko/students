@@ -1,6 +1,5 @@
 package by.webproj.carshowroom.command;
 
-import by.webproj.carshowroom.command.test.ShowTestPageCommand;
 import by.webproj.carshowroom.controller.RequestFactory;
 import by.webproj.carshowroom.controller.SimpleRequestFactory;
 import by.webproj.carshowroom.model.connection.ConnectionPool;
@@ -19,9 +18,9 @@ public class InitialContext {
     private final PasswordHasher bcryptWithSaltHasher = new BcryptWithSaltHasherImpl();
     private final UserService simpleUserService = new SimpleUserService(simplePageServiceValidator, simplePageDao, bcryptWithSaltHasher);
     private final RequestFactory simpleRequestFactory = new SimpleRequestFactory();
-    private final ImageDao imageDao = new SimpleImageDao(hikariCPConnectionPool);
-    private final ImagesService imagesService = new SimpleImagesService(imageDao);
 
+    private final RequestDao requestDao = new SimpleRequestDao(hikariCPConnectionPool);
+    private final CarRepairDao carRepairDao = new SimpleCarRepairDao(hikariCPConnectionPool);
     public Command lookup(String commandName) {
 
         switch (commandName) {
@@ -35,18 +34,22 @@ public class InitialContext {
                 return new ShowRegistrationPageCommand(simpleRequestFactory);
             case "registrationcmnd":
                 return new RegistrationCommand(simpleUserService, simpleRequestFactory);
-            case "test":
-                return new ShowTestPageCommand(simpleRequestFactory);
-            case "info":
-                return new ShowInfoPageCommand(simpleRequestFactory);
-            case "images":
-                return new ShowImagesCommand(simpleRequestFactory,imagesService);
-            case "analyze":
-                return new ShowAnalizePageCommand(simpleRequestFactory);
-            case "result":
-                return new ShowResultPageCommand(simpleRequestFactory);
-            case "analyzeImage":
-                return new AnalyzeImageCommand(simpleRequestFactory,imagesService);
+            case "createRequest":
+                return new ShowAddrRequestPage(simpleRequestFactory);
+            case "addreq":
+                return new AddRequestCommand(simpleRequestFactory,requestDao);
+            case "curRequests":
+                return new ShowCurrentRequestsCommand(simpleRequestFactory,carRepairDao);
+            case "completeRequests":
+                return new ShowCompleteReqCommand(simpleRequestFactory,carRepairDao);
+            case "createRequest1":
+                return new ShowRCommand(simpleRequestFactory,requestDao);
+            case "add":
+                return new AddRequestCommand(simpleRequestFactory,requestDao);
+            case "add1":
+                return new AddReqCommand(simpleRequestFactory,requestDao,carRepairDao);
+            case "createRequest2":
+                return new ShowR1Command(simpleRequestFactory,carRepairDao);
             default:
                 return new ShowMainPageCommand(simpleRequestFactory);
         }

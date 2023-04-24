@@ -23,49 +23,54 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <style>
-    .flex {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
+  .flex {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
 
-    body {
-        margin: 0;
-        padding: 0
-    }
-    .h100 {
+  body {
+    margin: 0;
+    padding: 0
+  }
+  .h100 {
 
-        flex-grow: 3
-    }
+    flex-grow: 3
+  }
 
 
 </style>
 <html>
 <head>
-    <title>Тест на дальтонизм</title>
+  <title>Оставить заявку на ремонт</title>
 </head>
 <body>
 <div class="container-fluid flex">
-    <div class="row">
+  <div class="row">
+    <div class="col-md-12">
+      <jsp:include page="header.jsp"></jsp:include>
+    </div>
+  </div>
+  <div class="row h-100">
+    <div class="col-md-12 h-100">
+        <form method="post" action="/controller?command=addreq">
+          <label for="name">Название заявки</label>
+          <input id = "name" type="text" required name="requestName">
+          <br>
+          <br>
+          <label for="desc">Описание проблемы</label>
+          <input id="desc" type="text" required name="requestDescription">
+          <input hidden="hidden" name="userId" value="${sessionScope.user.id}">
+          <br>
+          <button type="submit">Оставить заявку</button>
+        </form>
+      <div class="row">
         <div class="col-md-12">
-            <jsp:include page="header.jsp"></jsp:include>
+          <jsp:include page="footer.jsp"></jsp:include>
         </div>
+      </div>
     </div>
-    <div class="row h-100">
-        <div class="col-md-12 h-100">
-            <br>
-            <form action="/controller?command=analyzeImage" method="post" enctype="multipart/form-data">
-                <input type="file" name="image" required>
-                <br>
-                <button type="submit">Загрузить картинку для анализа цветов</button>
-            </form>
-            <div class="row">
-                <div class="col-md-12">
-                    <jsp:include page="footer.jsp"></jsp:include>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 </body>
 </html>
