@@ -21,6 +21,7 @@ public class InitialContext {
 
     private final RequestDao requestDao = new SimpleRequestDao(hikariCPConnectionPool);
     private final CarRepairDao carRepairDao = new SimpleCarRepairDao(hikariCPConnectionPool);
+    private final PassportDao passportDao = new SimplePassportDao(hikariCPConnectionPool);
     public Command lookup(String commandName) {
 
         switch (commandName) {
@@ -34,25 +35,24 @@ public class InitialContext {
                 return new ShowRegistrationPageCommand(simpleRequestFactory);
             case "registrationcmnd":
                 return new RegistrationCommand(simpleUserService, simpleRequestFactory);
-            case "createRequest":
-                return new ShowAddrRequestPage(simpleRequestFactory);
-            case "addreq":
-                return new AddRequestCommand(simpleRequestFactory,requestDao);
-            case "curRequests":
-                return new ShowCurrentRequestsCommand(simpleRequestFactory,carRepairDao);
-            case "completeRequests":
-                return new ShowCompleteReqCommand(simpleRequestFactory,carRepairDao);
-            case "createRequest1":
-                return new ShowRCommand(simpleRequestFactory,requestDao);
+            case "addPass":
+                return new ShowAddPassportPageCommand(simpleRequestFactory);
             case "add":
-                return new AddRequestCommand(simpleRequestFactory,requestDao);
-            case "add1":
-                return new AddReqCommand(simpleRequestFactory,requestDao,carRepairDao);
-            case "createRequest2":
-                return new ShowR1Command(simpleRequestFactory,carRepairDao);
-            default:
+                return new AddPassportCommand(simpleRequestFactory,passportDao);
+            case "show":
+                return new ShowPassportsPageCommand(simpleRequestFactory,passportDao);
+            case "del":
+                return new DeletePassportCommand(simpleRequestFactory,passportDao);
+            case "sort":
+                return new SortCommand(simpleRequestFactory,passportDao);
+            case "updatePage":
+                return new ShowUpdatePageCommand(simpleRequestFactory,passportDao);
+            case "update":
+                return new UpdatePageCommand(simpleRequestFactory,passportDao);
+            case "about":
+                return new ShowAboutPageCommand(simpleRequestFactory);
+                default:
                 return new ShowMainPageCommand(simpleRequestFactory);
         }
-
     }
 }

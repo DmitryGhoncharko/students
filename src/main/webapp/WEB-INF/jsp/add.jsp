@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -23,55 +23,65 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <style>
-  .flex {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
+    .flex {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
 
-  body {
-    margin: 0;
-    padding: 0
-  }
-  .h100 {
+    body {
+        margin: 0;
+        padding: 0
+    }
+    .h100 {
 
-    flex-grow: 3
-  }
+        flex-grow: 3
+    }
 
 
 </style>
 <html>
 <head>
-  <title>Оставить заявку на ремонт</title>
+    <title>Страница создания паспорта объекта</title>
 </head>
 <body>
 <div class="container-fluid flex">
-  <div class="row">
-    <div class="col-md-12">
-      <jsp:include page="header.jsp"></jsp:include>
-    </div>
-  </div>
-  <div class="row h-100">
-    <div class="col-md-12 h-100">
-      <c:forEach items="${requestScope.c}" var="request">
-
-          <p id="name">${request.name}</p>
-          <br>
-          <p id="desc">${request.description}</p>
-          <br>
-          <br>
-          <p>${request.cost}</p>
-          <br>
-          <br>
-
-      </c:forEach>
-      <div class="row">
+    <div class="row">
         <div class="col-md-12">
-          <jsp:include page="footer.jsp"></jsp:include>
+            <jsp:include page="header.jsp"></jsp:include>
         </div>
-      </div>
     </div>
-  </div>
+    <div class="row h-100">
+        <div class="col-md-12 h-100">
+          <form method="post" action="/controller?command=add">
+              <label for="cs">Заказчик</label>
+              <input id="cs" name="customer" type="text" required>
+              <br>
+              <label for="cs1">Организатор</label>
+              <input id="cs1" name="org" type="text" required>
+              <br>
+              <label for="cs2">Руководитель</label>
+              <input id="cs2" name="ruk" type="text" required>
+              <br>
+              <label for="cs3">Генподрядчик</label>
+              <input id="cs3" name="gen" type="text" required>
+              <br>
+              <label for="cs4">Технический надзор</label>
+              <input id="cs4" name="tex" type="text" required>
+              <br>
+              <label for="cs5">Ответсвтенное лицо</label>
+              <input id="cs5" name="ots" type="text" required>
+              <br>
+              <br>
+              <button type="submit">Добавить паспорт объекта</button>
+          </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <jsp:include page="footer.jsp"></jsp:include>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

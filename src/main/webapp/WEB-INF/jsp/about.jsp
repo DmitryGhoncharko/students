@@ -1,4 +1,21 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: dangeonMaster
+  Date: 22.05.2023
+  Time: 16:52
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -23,51 +40,46 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <style>
-  .flex {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
+    .flex {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
 
-  body {
-    margin: 0;
-    padding: 0
-  }
-  .h100 {
+    body {
+        margin: 0;
+        padding: 0
+    }
+    .h100 {
 
-    flex-grow: 3
-  }
+        flex-grow: 3
+    }
 
 
 </style>
 <html>
 <head>
-  <title>Текущие оставленные заявки</title>
+    <title>Страница созданных паспортов объекта</title>
 </head>
 <body>
 <div class="container-fluid flex">
-  <div class="row">
-    <div class="col-md-12">
-      <jsp:include page="header.jsp"></jsp:include>
-    </div>
-  </div>
-  <div class="row h-100">
-    <div class="col-md-12 h-100">
-     <c:forEach items="rep" var="request">
-        <p id="name">Название: ${request.name}</p>
-         <br>
-         <p>Описание: ${request.description}</p>
-         <br>
-         <p>Цена: ${request.cost}</p>
-         <br>
-     </c:forEach>
-      <div class="row">
+    <div class="row">
         <div class="col-md-12">
-          <jsp:include page="footer.jsp"></jsp:include>
+            <jsp:include page="header.jsp"></jsp:include>
         </div>
-      </div>
     </div>
-  </div>
+    <div class="row h-100">
+        <div class="col-md-12 h-100">
+           <h6>Автор : </h6>
+            <br>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <jsp:include page="footer.jsp"></jsp:include>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
