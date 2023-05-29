@@ -5,17 +5,17 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-@EqualsAndHashCode
-@Getter
-@ToString
+import java.sql.Date;
+
 @Builder
-public class Passport {
+@EqualsAndHashCode
+@ToString
+@Getter
+public class Org {
     private Long id;
-    private String customer;
-    private String org;
-    private String ruk;
-    private String gen;
-    private String tex;
-    private String ots;
+    private String name;
+    private String description;
+    private Date date;
+
     private Long userId;
 }

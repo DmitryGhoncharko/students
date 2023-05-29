@@ -1,19 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dangeonMaster
-  Date: 22.05.2023
-  Time: 16:52
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -40,61 +24,57 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <style>
-    .flex {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
+  .flex {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
 
-    body {
-        margin: 0;
-        padding: 0
-    }
-    .h100 {
+  body {
+    background-color: grey;
+    margin: 0;
+    padding: 0
+  }
+  .h100 {
 
-        flex-grow: 3
-    }
+    flex-grow: 3
+  }
 
 
 </style>
 <html>
 <head>
-    <title>Страница созданных паспортов объекта</title>
+  <title>Страница запланированных мероприятий</title>
 </head>
 <body>
 <div class="container-fluid flex">
-    <div class="row">
+  <div class="row">
+    <div class="col-md-12">
+      <jsp:include page="header.jsp"></jsp:include>
+    </div>
+  </div>
+  <div class="row h-100">
+    <div class="col-md-12 h-100">
+      <c:forEach items="${requestScope.orgs}" var="org">
+        <h6>Название мероприятия: ${org.name}</h6>
+        <br>
+        <h6>Описание мероприятия: ${org.description}</h6>
+        <br>
+        <h6>Дата проведения мероприятия: ${org.date}</h6>
+        <br>
+        <br>
+        <a href="/controller?command=del&id=${org.id}">Удалить</a>
+        <a href="/controller?command=update&id=${org.id}">Изменить</a>
+        <br>
+        <br>
+      </c:forEach>
+      <div class="row">
         <div class="col-md-12">
-            <jsp:include page="header.jsp"></jsp:include>
+          <jsp:include page="footer.jsp"></jsp:include>
         </div>
+      </div>
     </div>
-    <div class="row h-100">
-        <div class="col-md-12 h-100">
-            <a href="/controller?command=sort">Сортировать</a>
-            <c:forEach items="${requestScope.pass}" var="ps">
-                <h6>Заказчик: ${ps.customer}</h6>
-                <br>
-                <h6>Проектная организация: ${ps.org}</h6>
-                <br>
-                <h6>Руководитель авторского надзора: ${ps.ruk}</h6>
-                <br>
-                <h6>Генподрядчик: ${ps.gen}</h6>
-                <br>
-                <h6>Технический надзор: ${ps.tex}</h6>
-                <br>
-                <h6>Ответсвтенное лицо: ${ps.ots}</h6>
-                <br>
-                <br>
-                <a href="/controller?command=del&id=${ps.id}">Удалить</a>
-                <a href="/controller?command=updatePage&id=${ps.id}">Обновить</a>
-            </c:forEach>
-            <div class="row">
-                <div class="col-md-12">
-                    <jsp:include page="footer.jsp"></jsp:include>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 </body>
 </html>

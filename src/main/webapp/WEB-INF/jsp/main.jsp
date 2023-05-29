@@ -30,6 +30,7 @@
     }
 
     body {
+        background-color: grey;
         margin: 0;
         padding: 0
     }
@@ -64,19 +65,19 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap First" src="${pageContext.request.contextPath}/static/1.jpg"/>
+                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap First" src="${pageContext.request.contextPath}/static/1.jpeg"/>
                         <div class="carousel-caption">
 
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Second" src="${pageContext.request.contextPath}/static/2.png"/>
+                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Second" src="${pageContext.request.contextPath}/static/1.jpeg"/>
                         <div class="carousel-caption">
 
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Third" src="${pageContext.request.contextPath}/static/3.jpg"/>
+                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Third" src="${pageContext.request.contextPath}/static/1.jpeg"/>
                         <div class="carousel-caption">
 
                         </div>

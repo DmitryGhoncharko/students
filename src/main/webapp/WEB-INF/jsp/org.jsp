@@ -31,6 +31,7 @@
   }
 
   body {
+    background-color: grey;
     margin: 0;
     padding: 0
   }
@@ -43,7 +44,7 @@
 </style>
 <html>
 <head>
-  <title>Страница созданных паспортов объекта</title>
+  <title>Страница запланированных мероприятий</title>
 </head>
 <body>
 <div class="container-fluid flex">
@@ -54,29 +55,20 @@
   </div>
   <div class="row h-100">
     <div class="col-md-12 h-100">
-      <form method="post" action="/controller?command=update">
-        <label for="s1">Заказчик</label>
-        <input type="text" id="s1" name="customer" required value="${requestScope.pass.customer}">
+      <form method="post" action="/controller?command=updateData">
+        <input name="name" value="${requestScope.org.name}" id="s1" required>
         <br>
-        <label for="s2">Проектная организация</label>
-        <input id="s2" type="text" name="org" required value="${requestScope.pass.org}">
+        <input hidden="hidden" name="id" value="${requestScope.org.id}">
+        <label for="s2">Описание мероприятия</label>
+        <input name="desc" id="s2" value="${requestScope.org.description}" required>
         <br>
-        <label for="s3">Руководитель авторского надзора</label>
-        <input id="s3" type="text" name="ruk" required value="${requestScope.pass.ruk}">
-        <br>
-        <label for="s4">Генподрядчик</label>
-        <input type="text" name="gen" id="s4" required value="${requestScope.pass.gen}">
-        <br>
-        <label for="s5">Технический надзор</label>
-        <input type="text" id="s5" required name="tex" value="${requestScope.pass.tex}">
-        <br>
-        <label for="s6">Ответсвтенное лицо</label>
-        <input id="s6" required type="text" name="ots" value="${requestScope.pass.ots}">
+        <label for="s3">Дата проведения мероприятия</label>
+        <input name="date" type="date" id="s3" value="${requestScope.org.date}" required>
         <br>
         <br>
-        <input hidden="hidden" name="id" ${requestScope.pass.id}>
         <button type="submit">Обновить</button>
-
+        <br>
+        <br>
       </form>
       <div class="row">
         <div class="col-md-12">
@@ -88,3 +80,4 @@
 </div>
 </body>
 </html>
+

@@ -150,7 +150,7 @@
     .form-horizontal .btn {
         float: right;
         font-size: 14px;
-        color: #fff;
+        color:green;
         background: #00b4ef;
         border-radius: 30px;
         padding: 10px 25px;

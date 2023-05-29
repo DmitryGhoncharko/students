@@ -18,10 +18,7 @@ public class InitialContext {
     private final PasswordHasher bcryptWithSaltHasher = new BcryptWithSaltHasherImpl();
     private final UserService simpleUserService = new SimpleUserService(simplePageServiceValidator, simplePageDao, bcryptWithSaltHasher);
     private final RequestFactory simpleRequestFactory = new SimpleRequestFactory();
-
-    private final RequestDao requestDao = new SimpleRequestDao(hikariCPConnectionPool);
-    private final CarRepairDao carRepairDao = new SimpleCarRepairDao(hikariCPConnectionPool);
-    private final PassportDao passportDao = new SimplePassportDao(hikariCPConnectionPool);
+    private final OrgDao orgDao = new SimpleOrgDao(hikariCPConnectionPool);
     public Command lookup(String commandName) {
 
         switch (commandName) {
@@ -35,23 +32,21 @@ public class InitialContext {
                 return new ShowRegistrationPageCommand(simpleRequestFactory);
             case "registrationcmnd":
                 return new RegistrationCommand(simpleUserService, simpleRequestFactory);
-            case "addPass":
-                return new ShowAddPassportPageCommand(simpleRequestFactory);
-            case "add":
-                return new AddPassportCommand(simpleRequestFactory,passportDao);
-            case "show":
-                return new ShowPassportsPageCommand(simpleRequestFactory,passportDao);
-            case "del":
-                return new DeletePassportCommand(simpleRequestFactory,passportDao);
-            case "sort":
-                return new SortCommand(simpleRequestFactory,passportDao);
-            case "updatePage":
-                return new ShowUpdatePageCommand(simpleRequestFactory,passportDao);
-            case "update":
-                return new UpdatePageCommand(simpleRequestFactory,passportDao);
             case "about":
                 return new ShowAboutPageCommand(simpleRequestFactory);
-                default:
+            case "addOrg":
+                return new ShowAddPageCommand(simpleRequestFactory);
+            case "add":
+                return new AddOrgCommand(simpleRequestFactory,orgDao);
+            case "del":
+                return new DeleteOrgCommand(simpleRequestFactory,orgDao);
+            case "update":
+                return new ShowUpdatePageCommand(simpleRequestFactory,orgDao);
+            case "updateData":
+                return new UpdateDataCommand(simpleRequestFactory,orgDao);
+            case "all":
+                return new ShowAllOrgsPageCommand(simpleRequestFactory,orgDao);
+            default:
                 return new ShowMainPageCommand(simpleRequestFactory);
         }
     }

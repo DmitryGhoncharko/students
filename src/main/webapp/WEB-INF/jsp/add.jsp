@@ -42,7 +42,7 @@
 </style>
 <html>
 <head>
-    <title>Страница создания паспорта объекта</title>
+    <title>Страница добавления мероприятия</title>
 </head>
 <body>
 <div class="container-fluid flex">
@@ -54,26 +54,17 @@
     <div class="row h-100">
         <div class="col-md-12 h-100">
           <form method="post" action="/controller?command=add">
-              <label for="cs">Заказчик</label>
-              <input id="cs" name="customer" type="text" required>
+              <label for="cs">Название</label>
+              <input id="cs" name="name" type="text" required>
               <br>
-              <label for="cs1">Организатор</label>
-              <input id="cs1" name="org" type="text" required>
+              <label for="cs1">Описание</label>
+              <input id="cs1" name="desc" type="text" required>
               <br>
-              <label for="cs2">Руководитель</label>
-              <input id="cs2" name="ruk" type="text" required>
-              <br>
-              <label for="cs3">Генподрядчик</label>
-              <input id="cs3" name="gen" type="text" required>
-              <br>
-              <label for="cs4">Технический надзор</label>
-              <input id="cs4" name="tex" type="text" required>
-              <br>
-              <label for="cs5">Ответсвтенное лицо</label>
-              <input id="cs5" name="ots" type="text" required>
+              <label for="cs2">Дата проведения мероприятия</label>
+              <input id="cs2" name="date" type="date" required>
               <br>
               <br>
-              <button type="submit">Добавить паспорт объекта</button>
+              <button type="submit">Добавить мероприятие</button>
           </form>
             <div class="row">
                 <div class="col-md-12">
