@@ -46,6 +46,8 @@ public class InitialContext {
                 return new UpdateDataCommand(simpleRequestFactory,orgDao);
             case "all":
                 return new ShowAllOrgsPageCommand(simpleRequestFactory,orgDao);
+            case "sort":
+                return new SortCommand(simpleRequestFactory,orgDao);
             default:
                 return new ShowMainPageCommand(simpleRequestFactory);
         }

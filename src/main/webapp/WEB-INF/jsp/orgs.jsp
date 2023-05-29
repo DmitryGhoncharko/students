@@ -55,6 +55,8 @@
   </div>
   <div class="row h-100">
     <div class="col-md-12 h-100">
+      <a href="/controller?command=sort">Сортировать по дате</a>
+      <br>
       <c:forEach items="${requestScope.orgs}" var="org">
         <h6>Название мероприятия: ${org.name}</h6>
         <br>
