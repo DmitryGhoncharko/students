@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -54,36 +55,35 @@
     </div>
     <div class="row h-100">
         <div class="col-md-12 h-100">
-            <div class="carousel slide" id="carousel-406496">
-                <ol class="carousel-indicators">
-                    <li data-slide-to="0" data-target="#carousel-406496" class="active">
-                    </li>
-                    <li data-slide-to="1" data-target="#carousel-406496">
-                    </li>
-                    <li data-slide-to="2" data-target="#carousel-406496">
-                    </li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap First" src="${pageContext.request.contextPath}/static/11.jpg"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Second" src="${pageContext.request.contextPath}/static/11.jpg"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 h-100" alt="Carousel Bootstrap Third" src="${pageContext.request.contextPath}/static/11.jpg"/>
-                        <div class="carousel-caption">
-
-                        </div>
-                    </div>
-                </div> <a class="carousel-control-prev" href="#carousel-406496" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-406496" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
-            </div>
+            <form method="post" action="/controller?command=addStudent">
+                <label for="s1">Имя студента</label>
+                <input id="s1" name="name" type="text" required>
+                <br>
+                <label for="s2">Номер группы</label>
+                <input id="s2" name="group" type="text" required>
+                <br>
+                <label for="s3">Оценка</label>
+                <input id="s3" name="mark" type="number" max="5" required>
+                <br>
+                <br>
+                <button type="submit">Добавить студента</button>
+            </form>
+            <c:if test="${not empty requestScope.student}">
+                <form method="post" action="/controller?command=updateS">
+                    <label for="s11">Имя студента</label>
+                    <input id="s11" name="name" type="text" value="${requestScope.student.name}" required>
+                    <br>
+                    <label for="s22">Номер группы</label>
+                    <input id="s22" name="group" value="${requestScope.student.group}" type="text" required>
+                    <br>
+                    <label for="s33">Оценка</label>
+                    <input id="s33" name="mark" type="number" value="${requestScope.student.mark}" max="5" required>
+                    <br>
+                    <br>
+                    <input hidden="hidden" name="id" value="${requestScope.student.id}">
+                    <button type="submit">Обновить</button>
+                </form>
+            </c:if>
             <div class="row">
                 <div class="col-md-12">
                     <jsp:include page="footer.jsp"></jsp:include>

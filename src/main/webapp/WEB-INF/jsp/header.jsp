@@ -15,7 +15,7 @@
 <div class="container-fluide">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="<c:url value="/static/1.jpeg"/>" width="70" height="65"
+            <img src="<c:url value="/static/11.jpg"/>" width="70" height="65"
                  class="d-inline-block align-top" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -35,8 +35,8 @@
             <c:when test="${not empty sessionScope.user}">
                 <a class="nav-link" href="/controller?command=/" role="button">На главную</a>
 
-                   <a class="nav-link" href="/controller?command=addOrg" role="button">Добавить новое мероприятие</a>
-                    <a class="nav-link" href="/controller?command=all" role="button">Посмотреть созданные мероприятия</a>
+                   <a class="nav-link" href="/controller?command=student" role="button">Добавить студента</a>
+                    <a class="nav-link" href="/controller?command=all" role="button">Журнал</a>
                 <a class="nav-link" href="/controller?command=about" role="button">Об авторе</a>
                 <a class="btn btn-primary" href="/controller?command=logout" role="button">Выйти</a>
             </c:when>

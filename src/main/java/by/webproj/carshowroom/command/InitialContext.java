@@ -18,7 +18,7 @@ public class InitialContext {
     private final PasswordHasher bcryptWithSaltHasher = new BcryptWithSaltHasherImpl();
     private final UserService simpleUserService = new SimpleUserService(simplePageServiceValidator, simplePageDao, bcryptWithSaltHasher);
     private final RequestFactory simpleRequestFactory = new SimpleRequestFactory();
-    private final OrgDao orgDao = new SimpleOrgDao(hikariCPConnectionPool);
+    private final StudentDao studentDao = new SimpleStudentDao(hikariCPConnectionPool);
     public Command lookup(String commandName) {
 
         switch (commandName) {
@@ -34,20 +34,18 @@ public class InitialContext {
                 return new RegistrationCommand(simpleUserService, simpleRequestFactory);
             case "about":
                 return new ShowAboutPageCommand(simpleRequestFactory);
-            case "addOrg":
-                return new ShowAddPageCommand(simpleRequestFactory);
-            case "add":
-                return new AddOrgCommand(simpleRequestFactory,orgDao);
-            case "del":
-                return new DeleteOrgCommand(simpleRequestFactory,orgDao);
-            case "update":
-                return new ShowUpdatePageCommand(simpleRequestFactory,orgDao);
-            case "updateData":
-                return new UpdateDataCommand(simpleRequestFactory,orgDao);
+            case "student":
+                return new ShowAddStudentPageCommand(simpleRequestFactory);
             case "all":
-                return new ShowAllOrgsPageCommand(simpleRequestFactory,orgDao);
-            case "sort":
-                return new SortCommand(simpleRequestFactory,orgDao);
+                return new ShowAllStudentsPageCommand(simpleRequestFactory,studentDao);
+            case "del":
+                return new DeleteStudentCommand(simpleRequestFactory,studentDao);
+            case "update":
+                return new ShowStudentPageCommand(simpleRequestFactory,studentDao);
+            case "updateS":
+                return new UpdateCommand(simpleRequestFactory,studentDao);
+            case "addStudent":
+                return new AddStudentCommand(simpleRequestFactory,studentDao);
             default:
                 return new ShowMainPageCommand(simpleRequestFactory);
         }

@@ -5,17 +5,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.sql.Date;
-
 @Builder
 @EqualsAndHashCode
 @ToString
 @Getter
-public class Org {
+public class Student {
     private Long id;
     private String name;
-    private String description;
-    private Date date;
-
-    private Long userId;
+    private String group;
+    private Integer mark;
 }

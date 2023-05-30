@@ -24,60 +24,55 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <style>
-  .flex {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
+    .flex {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
 
-  body {
-    background-color: grey;
-    margin: 0;
-    padding: 0
-  }
-  .h100 {
+    body {
+        background-color: grey;
+        margin: 0;
+        padding: 0
+    }
+    .h100 {
 
-    flex-grow: 3
-  }
+        flex-grow: 3
+    }
 
 
 </style>
 <html>
 <head>
-  <title>Страница запланированных мероприятий</title>
+    <title>Главная страница</title>
 </head>
 <body>
 <div class="container-fluid flex">
-  <div class="row">
-    <div class="col-md-12">
-      <jsp:include page="header.jsp"></jsp:include>
-    </div>
-  </div>
-  <div class="row h-100">
-    <div class="col-md-12 h-100">
-      <form method="post" action="/controller?command=updateData">
-        <input name="name" value="${requestScope.org.name}" id="s1" required>
-        <br>
-        <input hidden="hidden" name="id" value="${requestScope.org.id}">
-        <label for="s2">Описание мероприятия</label>
-        <input name="desc" id="s2" value="${requestScope.org.description}" required>
-        <br>
-        <label for="s3">Дата проведения мероприятия</label>
-        <input name="date" type="date" id="s3" value="${requestScope.org.date}" required>
-        <br>
-        <br>
-        <button type="submit">Обновить</button>
-        <br>
-        <br>
-      </form>
-      <div class="row">
+    <div class="row">
         <div class="col-md-12">
-          <jsp:include page="footer.jsp"></jsp:include>
+            <jsp:include page="header.jsp"></jsp:include>
         </div>
-      </div>
     </div>
-  </div>
+    <div class="row h-100">
+        <div class="col-md-12 h-100">
+            <a href="/controller?command=sort">Сортировать по оценкам</a>
+            <c:forEach items="${requestScope.students}" var="student">
+                <h6>Имя студента: ${student.name}</h6>
+                <br>
+                <h6>Номер группы студента: ${student.group}</h6>
+                <br>
+                <h6>Оценка: ${student.mark}</h6>
+                <br>
+                <a href="/controller?command=del&id=${student.id}">Удалить</a>
+                <a href="/controller?command=update&id=${student.id}">Изменить</a>
+            </c:forEach>
+            <div class="row">
+                <div class="col-md-12">
+                    <jsp:include page="footer.jsp"></jsp:include>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
-
